@@ -14,7 +14,7 @@ def prepare_axes(ax, lim=1.5):
     ax.axhline(0, color="gray", lw=0.5); ax.axvline(0, color="gray", lw=0.5)
     ax.grid(True, alpha=0.3)
     t = np.linspace(0, 2 * np.pi, 200)
-    ax.plot(np.cos(t), np.sin(t), color="lightgray", lw=1)  # cercle unité
+    ax.plot(np.cos(t), np.sin(t), color="lightgray", lw=1)
 
 fig, ax = plt.subplots(figsize=(6, 6))
 prepare_axes(ax)
