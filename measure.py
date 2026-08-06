@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 ket_0 = np.array([1,0], dtype = complex)
 state = np.array([math.sqrt(0.8),math.sqrt(0.2)], dtype = complex)
 raw_state = np.array([math.sqrt(3), math.sqrt(7)], dtype = complex)
+h = np.array([1/math.sqrt(2), 1/math.sqrt(2)], dtype = complex)
 
 
 def squared_norm(state):
@@ -67,19 +68,22 @@ def measure(state):
     res = count(lst)
     return res
 
-m_ket = measure(ket_0)
-m_state = measure(state)
-m_raw = measure(raw_state)
-print(m_ket)
-print(m_state)
-print(m_raw)
+if __name__ == "__main__":
+    """
+    m_ket = measure(ket_0)
+    m_state = measure(state)
+    m_raw = measure(raw_state)
+    print(m_ket)
+    print(m_state)
+    print(m_raw)
 
-plot(m_ket)
-plot(m_state)
-plot(m_raw)
+    plot(m_ket)
+    plot(m_state)
+    plot(m_raw)
 
-
-
+    """
+    print(measure(h))
+    #plot(measure(h))
 
 
 
