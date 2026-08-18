@@ -1,90 +1,89 @@
 import numpy as np
 import math
 import matplotlib.pyplot as plt
+from qubit_state import is_normalized, normalize, ket_0
 
-ket_0 = np.array([1,0], dtype = complex)
-state = np.array([math.sqrt(0.8),math.sqrt(0.2)], dtype = complex)
-raw_state = np.array([math.sqrt(3), math.sqrt(7)], dtype = complex)
-h = np.array([1/math.sqrt(2), 1/math.sqrt(2)], dtype = complex)
-
-
-def squared_norm(state):
-    res = np.sum(np.abs(state)**2)
-    return res
-
-
-def is_normalized(state):
-    return np.isclose(squared_norm(state),1)
-
-
-def normalize(state):
-    return state/np.sqrt(squared_norm(state))
-
-
-def biased(state):
+def biased(state, etiquette):
     rand = np.random.random()
-    if rand <= np.abs(state[0])**2:
-        return 0 
+    if len(etiquette) == 2:
+        if rand <= np.abs(state[0])**2:
+            return etiquette[0]
+        else:
+            return etiquette[1]
+    elif len(etiquette) == 4:
+        place0 = np.abs(state[0])**2 
+        place1 = np.abs(state[1])**2 
+        place2 = np.abs(state[2])**2 
+        if rand <= place0 :
+            return etiquette[0]
+        elif rand > place0 and rand <= (place0 + place1):
+            return etiquette[1]
+        elif rand > (place0 + place1) and rand <= (place0 + place1 + place2):
+            return etiquette[2]
+        else:
+            return etiquette[3]
     else:
-        return 1
+        print("Etiquette error")
+        return None
 
-
-def repeat(state):
+def repeat(state, etiquette):
     lst = []
     for i in range(1000):
-        result = biased(state)
+        result = biased(state, etiquette)
         lst.append(result)
     return lst
 
 
+def counter(lst, etiquette):
+    res = [0] * len(etiquette)
 
-def count(liste):
-    a = 0 
-    b = 0 
-    for i in range(len(liste)):
-        if liste[i] == 0:
-            a+=1 
-        else:
-            b+=1 
-    return [a,b]
+    for resultat in lst:
+        position = etiquette.index(resultat)
+        res[position] += 1
 
+    return res
 
+def plot(liste1, etiquette):
+    if len(etiquette) ==2:
+        plt.bar([str(etiquette[0]),str(etiquette[1])], liste1, color='skyblue')
+    else:
+        plt.bar(etiquette,liste1, color='skyblue')
 
-def plot(liste2):
-    liste1 = ['0','1']
-    plt.bar(liste1, liste2, color='skyblue')
     plt.xlabel('Measured outcome')
     plt.ylabel('Number of measurements')
     plt.title('Measurement results over 1000 shots')
     plt.show()
-    
 
-def measure(state):
+def measure(state, etiquette):
     check = is_normalized(state)
-    if check == False:
-        print("Unnormalized state: ", state,", normalizing...")
+    if not check:
+        print("Unnormalized state:", state,", normalizing...")
         state = normalize(state)
-    lst = repeat(state)
-    res = count(lst)
+    lst = repeat(state, etiquette)
+    res = counter(lst, etiquette)
     return res
 
+
 if __name__ == "__main__":
-    """
-    m_ket = measure(ket_0)
-    m_state = measure(state)
-    m_raw = measure(raw_state)
+
+    state = np.array([math.sqrt(0.8),math.sqrt(0.2)], dtype = complex)
+    raw_state = np.array([math.sqrt(3), math.sqrt(7)], dtype = complex)
+    h = np.array([1/math.sqrt(2), 1/math.sqrt(2)], dtype = complex)
+    etiquette = [0,1]
+    m_ket = measure(ket_0,etiquette)
+    m_state = measure(state,etiquette)
+    m_raw = measure(raw_state, etiquette)
     print(m_ket)
     print(m_state)
     print(m_raw)
 
-    plot(m_ket)
-    plot(m_state)
-    plot(m_raw)
+    plot(m_ket,etiquette)
+    plot(m_state, etiquette)
+    plot(m_raw,etiquette)
+    print(measure(h,etiquette))
+    plot(measure(h,etiquette),etiquette)
 
-    """
-    print(measure(h))
-    #plot(measure(h))
-
+   
 
 
 

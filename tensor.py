@@ -1,12 +1,11 @@
-from measure import is_normalized
-from gates import gate_x, gate_z, gate_h, apply_gate 
+from qubit_state import is_normalized, ket_0, ket_1
+from gates import gate_h, apply_gate 
 import numpy as np 
 import math 
 
 
 
-ket_0 = np.array([1,0], dtype = complex)
-ket_1 = np.array([0,1], dtype = complex)
+ket_plus = apply_gate(gate_h, ket_0)
 
 
 def tensor_product(state1, state2):
@@ -16,7 +15,6 @@ def tensor_product(state1, state2):
 
 if __name__ == '__main__':
 
-    ket_plus = apply_gate(gate_h, ket_0)
     res = tensor_product(ket_plus,ket_plus)
     res2 = tensor_product(ket_0,ket_0)
     res3 = tensor_product(ket_0, ket_1)

@@ -1,7 +1,7 @@
 import numpy as np 
 
-KET_0 = np.array([1,0], dtype = complex)
-KET_1 = np.array([0,1], dtype = complex)
+ket_0 = np.array([1,0], dtype = complex)
+ket_1 = np.array([0,1], dtype = complex)
 raw_state = np.array([2,9], dtype = complex)
 
 def squared_norm(state):
@@ -17,15 +17,19 @@ def is_normalized(state):
 def normalize(state):
     return state/np.sqrt(squared_norm(state))
 
-print(squared_norm(KET_0))
-print(squared_norm(KET_1))
-print(is_normalized(KET_0))
-print(is_normalized(KET_1))
-print(is_normalized(raw_state)) #should be false
-print(normalize(KET_0))
-print(normalize(raw_state))
-print(squared_norm(raw_state))
-print(is_normalized((normalize(raw_state)))) #should be True
+
+
+if __name__ == "__main__":
+
+    print(squared_norm(ket_0))
+    print(squared_norm(ket_1))
+    print(is_normalized(ket_0))
+    print(is_normalized(ket_1))
+    print(is_normalized(raw_state)) #should be false
+    print(normalize(ket_0))
+    print(normalize(raw_state))
+    print(squared_norm(raw_state))
+    print(is_normalized((normalize(raw_state)))) #should be True
 
 
 
