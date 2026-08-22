@@ -7,22 +7,20 @@ import math
 
 
 
-res_00 = apply_gate(gate_cnot, tensor_product(ket_0, ket_0))
-res_01 = apply_gate(gate_cnot, tensor_product(ket_0, ket_1))
-res_10 = apply_gate(gate_cnot, tensor_product(ket_1, ket_0))
-res_11 = apply_gate(gate_cnot, tensor_product(ket_1, ket_1))
-
-check_00 = np.allclose(res_00, tensor_product(ket_0, ket_0))
-check_01 = np.allclose(res_01, tensor_product(ket_0,ket_1))
-check_10 = np.allclose(res_10,tensor_product(ket_1, ket_1))
-check_11 = np.allclose(res_11,tensor_product(ket_1, ket_0))
-h0 = apply_gate(gate_h, ket_0)
-res_plus = apply_gate(gate_cnot, tensor_product(h0,ket_0))
-check_entanglement = np.allclose(res_plus, [1/math.sqrt(2), 0, 0, 1/math.sqrt(2)])
-
-
-
 if __name__ == '__main__':
+    res_00 = apply_gate(gate_cnot, tensor_product(ket_0, ket_0))
+    res_01 = apply_gate(gate_cnot, tensor_product(ket_0, ket_1))
+    res_10 = apply_gate(gate_cnot, tensor_product(ket_1, ket_0))
+    res_11 = apply_gate(gate_cnot, tensor_product(ket_1, ket_1))
+
+    check_00 = np.allclose(res_00, tensor_product(ket_0, ket_0))
+    check_01 = np.allclose(res_01, tensor_product(ket_0,ket_1))
+    check_10 = np.allclose(res_10,tensor_product(ket_1, ket_1))
+    check_11 = np.allclose(res_11,tensor_product(ket_1, ket_0))
+    h0 = apply_gate(gate_h, ket_0)
+    res_plus = apply_gate(gate_cnot, tensor_product(h0,ket_0))
+    check_entanglement = np.allclose(res_plus, [1/math.sqrt(2), 0, 0, 1/math.sqrt(2)])
+
     etiquette = ['00','01','10','11'] 
     print(check_00)
     print(check_01)
@@ -39,11 +37,4 @@ if __name__ == '__main__':
     print(draw_prod)      
     plot(draw_bell, etiquette)
     plot(draw_prod, etiquette)
-
-
-
-
-
-
-
 

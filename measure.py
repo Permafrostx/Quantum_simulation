@@ -3,6 +3,7 @@ import math
 import matplotlib.pyplot as plt
 from qubit_state import is_normalized, normalize, ket_0
 
+
 def biased(state, etiquette):
     rand = np.random.random()
     if len(etiquette) == 2:
@@ -70,9 +71,11 @@ if __name__ == "__main__":
     raw_state = np.array([math.sqrt(3), math.sqrt(7)], dtype = complex)
     h = np.array([1/math.sqrt(2), 1/math.sqrt(2)], dtype = complex)
     etiquette = [0,1]
+
     m_ket = measure(ket_0,etiquette)
     m_state = measure(state,etiquette)
     m_raw = measure(raw_state, etiquette)
+
     print(m_ket)
     print(m_state)
     print(m_raw)

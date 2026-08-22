@@ -4,7 +4,7 @@ from qubit_state import is_normalized, ket_0, ket_1
 from measure import measure
 
 gate_x = np.array([ket_1, ket_0], dtype = complex)
-gate_z = np.array([ket_0,[ket_1[0],-(ket_1[1])]], dtype = complex)
+gate_z = np.array([[1,0],[0,-1]], dtype = complex)
 gate_h = np.array([(1/math.sqrt(2)*np.array([ket_0[0],ket_0[0]])),(1/math.sqrt(2)*np.array([ket_0[0],-(ket_1[1])]))], dtype = complex)
 gate_cnot = np.array([[1,0,0,0],[0,1,0,0],[0,0,0,1],[0,0,1,0]], dtype = complex)
 
